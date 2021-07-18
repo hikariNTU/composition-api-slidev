@@ -11,11 +11,12 @@
           mb-1
           font-family-digit
           animate-bounce
+          dark:(bg-dark-400 text-red-800)
         "
       >
         Counter.vue
       </code>
-      <p>Share state with reactive</p>
+      <p class="dark:(text-gray-400)">Share state with reactive</p>
     </div>
 
     <div
@@ -28,6 +29,7 @@
         my-4
         mx-2
         text-gray-600
+        dark:(text-gray-400)
       "
     >
       {{ count }}
@@ -89,9 +91,9 @@ export default defineComponent({
   @apply select-none text-gray-500;
   @apply focus-visible:ring ring-gray-700 focus:outline-none;
   @apply not-disabled:(hover:bg-light-400 shadow-md);
-  @apply disabled:(cursor-default bg-light-900);
+  @apply disabled:(cursor-default bg-light-900 dark:(bg-dark-100 text-dark-300));
   @apply active:(bg-light-800 shadow-sm);
-  
+  @apply not-disabled:(dark:(hover:bg-dark-400));
 }
 .btn-count.btn-count--reset {
   @apply border-yellow-300 text-yellow-600;
