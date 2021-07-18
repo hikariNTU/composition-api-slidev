@@ -1,0 +1,9 @@
+{
+  "windicss.includeLanguages": {
+    "md": "html"
+  },
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "[vue]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
+}
