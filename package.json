@@ -3,7 +3,7 @@
   "scripts": {
     "dev": "slidev --open",
     "build": "slidev build",
-    "build:gh": "slide build --base /composition-api-slidev/",
+    "build:gh": "npx slide build --base /composition-api-slidev/",
     "export": "slidev export"
   },
   "dependencies": {
