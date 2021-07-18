@@ -9,7 +9,7 @@ info: |
   Presentation slides for developers.
 
   Learn more at [Sli.dev](https://sli.dev)
-monaco: false
+monaco: true
 fonts:
   # basically the text
   sans: "teko"
@@ -23,7 +23,7 @@ fonts:
   shadow-xl
 "
 >
-  <h1 class="!mb-0 font-teko">Composable Vue</h1>
+  <h1 class="!mb-0 font-teko">Composition API</h1>
   <div class="mb-4">Brand new method to work with vue</div>
 </div>
 
@@ -33,9 +33,11 @@ fonts:
   </button>
 </div>
 
-<div class="abs-br m-6 flex gap-2">
-  <a href="https://github.com/slidevjs/slidev" target="_blank" alt="GitHub"
-    class="text-xl icon-btn opacity-50 !border-none !hover:text-white">
+<div class="abs-br m-6 flex gap-2 items-center">
+  <span text="sm">Full experience of type support by monaco-editor in dev mode</span>
+  <a href="https://github.com/hikariNTU/composition-api-slidev" target="_blank" alt="GitHub"
+    class="text-xl icon-btn opacity-50 !border-none !hover:text-white"
+    title="Slidev Slide - Composition API intro - Github">
     <carbon-logo-github />
   </a>
 </div>
@@ -106,11 +108,11 @@ async mount(){
 
 ---
 
-# Composition API
+# Composition API (counter)
 
 A <span class="font-black">counter</span> and a <span class="font-black">books list</span> fetch logic snippet
 
-```ts
+```ts {monaco}
 import { ref, computed, unref, defineComponent } from 'vue';
 
 /** Sound's like you need documentation? */
@@ -135,13 +137,41 @@ export default defineComponent({
 
 ---
 
+# Composition API (book list)
+
+A <span class="font-black">counter</span> and a <span class="font-black">books list</span> fetch logic snippet
+
+```ts {monaco}
+import { ref, computed, onMounted, defineComponent } from 'vue';
+const api = {async getBook(){return ['hello', 'world']}}
+const useBookList = () => {
+  const loading = ref(true)
+  const book = ref([''])
+  const sortedBook = computed(() => [...book.value].sort())
+  onMounted(async() => {
+    loading.value = true
+    book.value = await api.getBook()
+    loading.value = false
+  })
+  return {loading, book, sortedBook}
+}
+export default defineComponent({
+  setup(){
+    const { loading, book } = useBookList();
+    return { loading, book }
+  }
+})
+```
+
+---
+
 
 # Reuse Code
 
 <div grid="~ cols-2 gap-4">
 <div>
 
-```ts
+```ts {monaco}
 import { defineComponent } from "vue";
 import { useMouse } from "@vueuse/core";
 
@@ -173,6 +203,95 @@ export default defineComponent({
 
 ---
 
-# Behind the scene
-The brand new reactive system
+<div class="h-full grid grid-cols-[2fr,1fr] grid-rows-[1fr,auto]" >
 
+```js
+import { 
+  computed, defineComponent, onMounted, ref, unref, watch
+} from "vue";
+
+// This thing is share as module level.
+const count = ref(0);
+
+export default defineComponent({
+  setup(){
+    const addCount = () => { count.value = unref(count) + 1 };
+    const reset = () => { count.value = 0 };
+    const noReset = computed(() => unref(count) === 0);
+
+    // assign the count to global js
+    onMounted(() => {
+      globalThis.myCounter = count;
+      globalThis.watch = watch;
+      globalThis.computed = computed;
+    });
+
+    return { count, addCount, reset, noReset }
+  }
+});
+```
+
+<Counter />
+<div class="mt-4 text-center !text-dark-100 col-span-full animate-pulse">
+<code>myCounter</code> is exported to global !!
+Open your browser console to find it
+</div>
+</div>
+
+---
+
+# Appendix
+
+<div grid="~ cols-2">
+<div>
+
+- [Reactivity in Depth | Vue.js](https://v3.vuejs.org/guide/reactivity.html)
+- [Vue 3 Reactivity | Vue Mastery](https://www.vuemastery.com/courses/vue-3-reactivity/vue3-reactivity/)
+- [Composable Vue | Anthony Fu](https://talks.antfu.me/2021/composable-vue/)
+- [Mixin problem (中文) | Dennis Chung](https://hackmd.io/@hikari1286tw/Hyqwf40pd)
+
+This guy is god:
+
+<div class="inline-flex items-center gap-2 border px-6 py-4 rounded">
+<img 
+  class="w-16 h-16 rounded-full flex-shrink-0"
+  src="https://avatars.githubusercontent.com/u/11247099?v=4"
+/>
+<div>
+<h3 class="!pt-0"> Anthony Fu </h3>
+<span class="text-sm"> Vue3, Vite, VueUse and SliDev</span>
+</div>
+<div>
+<a href="https://github.com/antfu" target="_blank" alt="GitHub"
+  class="text-xl icon-btn opacity-50 !border-none">
+  <carbon-logo-github />
+</a>
+</div>
+</div>
+</div>
+
+<div class="flex gap-4">
+<Card title="vite + vue3 + windicss startup">
+<div class="flex justify-center">
+<a href="https://github.com/hikariNTU/vue-new-feature" target="_blank" alt="GitHub"
+  class="text-xl icon-btn opacity-50 !border-none">
+  <carbon-logo-github />
+</a>
+</div>
+</Card>
+
+<Card title="Vue2 plugin for composition api">
+<div>
+Official: <a href="https://github.com/vuejs/composition-api" target="_blank" alt="GitHub"
+  class="text-xl icon-btn opacity-50 !border-none">
+  <carbon-logo-github />
+</a>
+</div><div>
+Vue demi: <a href="https://github.com/vueuse/vue-demi" target="_blank" alt="GitHub"
+  class="text-xl icon-btn opacity-50 !border-none">
+  <carbon-logo-github />
+</a>
+</div>
+</Card>
+</div>
+</div>
