@@ -9,7 +9,6 @@ info: |
   Presentation slides for developers.
 
   Learn more at [Sli.dev](https://sli.dev)
-monaco: true
 fonts:
   # basically the text
   sans: "teko"
@@ -77,7 +76,7 @@ Vue2 composition api plugin / Vue3, Vue2.7 native
 
 ---
 layout: image-right
-image: /src/compare.png
+image: /compare.png
 ---
 
 # Options API
@@ -205,7 +204,7 @@ export default defineComponent({
 
 <div class="h-full grid grid-cols-[2fr,1fr] grid-rows-[1fr,auto]" >
 
-```js
+```ts {monaco}
 import { 
   computed, defineComponent, onMounted, ref, unref, watch
 } from "vue";
@@ -237,6 +236,13 @@ export default defineComponent({
 Open your browser console to find it
 </div>
 </div>
+
+---
+layout: center
+---
+
+# QA?
+
 
 ---
 
