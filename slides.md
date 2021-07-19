@@ -15,25 +15,25 @@ fonts:
 ---
 
 <div class="
-  flex items-end justify-center gap-5 px-10 py-6 
-  rounded-xl backdrop-filter backdrop-blur backdrop-brightness-60
+  flex items-end justify-center gap-5 px-10 py-16 
+  rounded backdrop-filter backdrop-blur backdrop-brightness-60
   border-t border-t-gray-600
   border-l-[1px] border-l-dark-100
   shadow-xl
 "
 >
-  <h1 class="!mb-0 font-teko">Composition API</h1>
-  <div class="mb-4">Brand new method to work with vue</div>
+  <h1 class="!mb-0 !text-4xl tracking-[6px] uppercase font-thin">Composition API</h1>
+  <div class="mb-1 tracking-[1px] text-gray-200">Brand new method to work with vue</div>
 </div>
 
 <div class="pt-12">
-  <button @click="$slidev.nav.next" class="border inline-flex justify-center items-center px-4 py-1 rounded cursor-pointer" hover="bg-white bg-opacity-10">
+  <button @click="$slidev.nav.next" class="border inline-flex justify-center items-center px-4 py-1 rounded cursor-pointer tracking-[4px] uppercase text-xs" hover="bg-white bg-opacity-10">
     Start <carbon:arrow-right class="inline ml-2 text-sm"/>
   </button>
 </div>
 
 <div class="abs-br m-6 flex gap-2 items-center">
-  <span text="sm">Full experience of type support by monaco-editor in dev mode</span>
+  <span text="xs gray-400">Full experience of type support by monaco-editor in dev mode</span>
   <a href="https://github.com/hikariNTU/composition-api-slidev" target="_blank" alt="GitHub"
     class="text-xl icon-btn opacity-50 !border-none !hover:text-white"
     title="Slidev Slide - Composition API intro - Github">
@@ -41,37 +41,6 @@ fonts:
   </a>
 </div>
 
----
-
-# Composition API?
-
-Vue2 composition api plugin / Vue3, Vue2.7 native
-
-> Composition is a new concept addressing the following problems with Vue2 Optional API and Mixin.
-
-<div class="grid grid-cols-3 gap-3 my-2">
-<Card title="This reference" v-click>
-  Option api dynamically bind <code>this</code> to instance, TypeScript and IDE hate it.
-</Card>
-<Card title="Spaghetti Code" v-click>
-  When component get large, same logic code will scatter around your options
-</Card>
-<Card title="Unknown Mixin" v-click>
-  Code reusing is difficult through mixin since it's auto merge, you need to know exactly mixin provided options.
-</Card>
-<Card title="Mixin Name" v-click>
-  Mixin name is conflict prone due to option merge.
-</Card>
-<Card title="Mixin Trace code" v-click>
-  Mixin properties seem to came from nowhere
-</Card>
-<div class="flex flex-col justify-end" v-after>
-<div class="inline-block text-gray-400">Extra reading:</div>
-
-- [Why composition API | Vue3.js](https://v3.vuejs.org/guide/composition-api-introduction.html#why-composition-api)
-- [VueUse - Composition Library<br>(Vue2 support!)](https://vueuse.org/)
-</div>
-</div>
 
 
 ---
@@ -103,6 +72,46 @@ async mount(){
   this.loading = false;
 }
 ```
+
+
+---
+
+
+# What can Composition API help?
+
+Vue2 composition api plugin / Vue3, Vue2.7 native
+
+<!-- > Composition is a new concept addressing the following problems with Vue2 Optional API and Mixin. -->
+
+<div class="grid grid-cols-3 gap-3 my-2">
+<Card title="This reference" v-click>
+  Option api dynamically bind <code>this</code> to instance, TypeScript and IDE hate it.
+</Card>
+<Card title="Spaghetti Code" v-click>
+  When component get large, same logic code will scatter around your options
+</Card>
+<Card title="Unknown Mixin" v-click>
+  Code reusing is difficult through mixin since it's auto merge, you need to know exactly mixin provided options.
+</Card>
+<Card title="Mixin Name" v-click>
+  Mixin name is conflict prone due to option merge.
+</Card>
+<Card title="Mixin Trace code" v-click>
+  Mixin properties seem to came from nowhere
+</Card>
+<Card title="Life Cycle" v-click>
+  Life cycle from vue is directly bind in option.
+</Card>
+<div class="flex text-right justify-end items-center text-gray-600 pr-3 border-r" v-after>
+Extra Reading
+</div>
+<div class="flex flex-col justify-end col-span-2" v-after>
+
+- [Why composition API | Vue3.js](https://v3.vuejs.org/guide/composition-api-introduction.html#why-composition-api)
+- [VueUse - Composition Library (Vue2 support!)](https://vueuse.org/)
+
+</div>
+</div>
 
 
 ---
@@ -164,11 +173,66 @@ export default defineComponent({
 
 ---
 
+# Composition API - props and context
+
+Since `setup()` is actually `created()` hook, component instance won't be ready for use
+
+<div grid="~ cols-2 flow-col" class="gap-4 grid-rows-[auto,1fr]">
+
+### Props
+
+```ts {monaco}
+import { computed, defineComponent } from 'vue';
+export default defineComponent({
+  props: ['title', 'count'],
+  setup(props){
+    // First arg is props, which is "reactive"
+    // You should not destruct it directly
+    const displayName = computed(
+      () => `${props.title} ${props.count}`,
+    )
+    return { displayName }
+  }
+})
+
+
+
+// padding
+```
+
+### Context { emit }
+
+```ts {monaco}
+import { defineComponent } from 'vue';
+export default defineComponent({
+  setup(_, { emit, slots, attrs }){
+    // The second is context object, which is just an object
+    const onBtnClick = () => {
+      emit('clicked', 'Hello click!!')
+    }
+    return { onBtnClick }
+  }
+})
+
+
+
+
+
+// padding
+```
+
+
+</div>
+
+
+---
 
 # Reuse Code
 
 <div grid="~ cols-2 gap-4">
 <div>
+
+### Confidence on useComposable
 
 ```ts {monaco}
 import { defineComponent } from "vue";
@@ -194,6 +258,8 @@ export default defineComponent({
 
 </div>
 <div>
+
+### Result
 
 <MouseTrack />
 
@@ -239,10 +305,19 @@ Open your browser console to find it
 
 ---
 layout: center
+preload: false
 ---
 
 # QA?
 
+<span v-motion-fade>In case you don't know what to ask:</span>
+
+<Question :seq="1">Is the idea of composition API come from vue3?</Question>
+<Question :seq="2">Only Vue3 can use composition API?</Question>
+<Question :seq="3">Is Composition API or Hook API the same thing so-called Functional Programming？</Question>
+<Question :seq="4">How does Composition API work?</Question>
+<Question :seq="5">Can I keep optional API style?</Question>
+<Question :seq="6">Composable Best Practice?</Question>
 
 ---
 
