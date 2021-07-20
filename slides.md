@@ -205,16 +205,16 @@ export default defineComponent({
 ```ts {monaco}
 import { defineComponent } from 'vue';
 export default defineComponent({
+  // You can define your emit in Vue3 just like props
+  emit: ['clicked'],
+  // The second is context, a plain js object
   setup(_, { emit, slots, attrs }){
-    // The second is context object, which is just an object
     const onBtnClick = () => {
       emit('clicked', 'Hello click!!')
     }
     return { onBtnClick }
   }
 })
-
-
 
 
 
@@ -302,6 +302,31 @@ export default defineComponent({
 Open your browser console to find it
 </div>
 </div>
+
+
+---
+
+# Composition Pros & Cons
+
+| **Pros**                                  | **Options API**                                    |
+| ----------------------------------------- | -------------------------------------------------- |
+| Clear Code Logic                          | Bind to options scattering around your component   |
+| Strong type support by natual             | Need extra decorator or type indicator             |
+| Easy to reuse/test since it's function    | Reuse need extra careful and fully document        |
+| Ability to control Lifecycle hook         | What you see in lifecyle is what you get           |
+| Almost no constrain on how you write code | options need to follow some js specified this rule |
+
+---
+
+# Composition Pros & Cons
+
+| **Cons**                                                    | **Options API**                                      |
+| ----------------------------------------------------------- | ---------------------------------------------------- |
+| obj.value is not standard js                                | this.obj is standard js                              |
+| Extra careful about it's reactive                           | Extra careful about it's setter/getter               |
+| Cannot stub data in Vue test utils                          | Stubbing whatever you want in VTU (Bad practice BTW) |
+| No clear life cycle go through                              | Template follow these options                        |
+| Can potentially write code that's more terrible than option | Can't get wrong since it just don't work             |
 
 ---
 layout: center
