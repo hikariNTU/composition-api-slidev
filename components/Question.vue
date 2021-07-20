@@ -4,7 +4,7 @@
   before:(content absolute block w-1 h-6 rounded-full bg-yellow-200 ml-[-16px])
   dark:(bg-dark-700)
   before:(dark:bg-dark-300)
-  question-list transition-color
+  question-list transition-colors
   hover:(text-current) cursor-help
   "
   tabindex="1"
@@ -23,6 +23,6 @@ export default defineComponent({
 
 <style>
 .question-list{
-  @apply focus:(ring ring-yellow-300 text-current outline-none);
+  @apply focus:(ring ring-yellow-500 text-current outline-none);
 };
 </style>
