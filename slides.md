@@ -433,6 +433,8 @@ Separation of vue specified and reactive package:
 
 <div grid="~ cols-2 gap-5">
 
+<div>
+
 Common imported Utils
 ```ts {monaco}
 import { // reactive stand alone package
@@ -453,6 +455,8 @@ import { // Life cycles, NEED TO BE IN SETUP!!
 
 ({ref, reactive, unref, toRef, toRaw, readonly, computed,watch, watchEffect,onBeforeMount, onMounted, onBeforeUpdate, onUpdated, onBeforeUnmount, onUnmounted, onActivated, onDeactivated, onRenderTracked, onRenderTriggered, onErrorCaptured, onServerPrefetch})
 ```
+
+</div>
 
 <div>
 
