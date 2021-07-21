@@ -354,6 +354,7 @@ preload: false
 - [Reactivity in Depth | Vue.js](https://v3.vuejs.org/guide/reactivity.html)
 - [Vue 3 Reactivity | Vue Mastery](https://www.vuemastery.com/courses/vue-3-reactivity/vue3-reactivity/)
 - [Composable Vue | Anthony Fu](https://talks.antfu.me/2021/composable-vue/)
+- [可組合式 Vue | Anthony Fu (上面的中文版，比較詳細 ^ ^)](https://talks.antfu.me/2021/vueconf-china)
 - [Mixin problem (中文) | Dennis Chung](https://hackmd.io/@hikari1286tw/Hyqwf40pd)
 
 This guy is god:
