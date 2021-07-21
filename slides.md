@@ -344,18 +344,34 @@ preload: false
 <Question :seq="5">Can I keep optional API style?</Question>
 <Question :seq="6">Composable Best Practice?</Question>
 
+
+---
+
+# Appendix
+Reactive system - Vue3
+
+- [Basic Reactivity APIs | Vue.js](https://v3.vuejs.org/api/basic-reactivity.html)
+- [Reactivity in Depth | Vue.js](https://v3.vuejs.org/guide/reactivity.html)
+
+**MDN**
+- [Proxy - JavaScript | MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy)
+- [Reflect - JavaScript | MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Reflect)
+
+**Repo**
+- [vue-next/packages/reactivity at master · vuejs/vue-next](https://github.com/vuejs/vue-next/tree/master/packages/reactivity) (only 2,300 lines in **Fully Typed!!** (v3.2))
+
+**Video**
+- [Vue 3 Reactivity - Vue 3 Reactivity | Vue Mastery](https://www.vuemastery.com/courses/vue-3-reactivity/vue3-reactivity/)
+- [Vue 3 Composition API Introduction [@Academind] - YouTube](https://www.youtube.com/watch?v=bwItFdPt-6M)
+
 ---
 
 # Appendix
 
+Misc
+
 <div grid="~ cols-2">
 <div>
-
-- [Reactivity in Depth | Vue.js](https://v3.vuejs.org/guide/reactivity.html)
-- [Vue 3 Reactivity | Vue Mastery](https://www.vuemastery.com/courses/vue-3-reactivity/vue3-reactivity/)
-- [Composable Vue | Anthony Fu](https://talks.antfu.me/2021/composable-vue/)
-- [可組合式 Vue | Anthony Fu (上面的中文版，比較詳細 ^ ^)](https://talks.antfu.me/2021/vueconf-china)
-- [Mixin problem (中文) | Dennis Chung](https://hackmd.io/@hikari1286tw/Hyqwf40pd)
 
 This guy is god:
 
@@ -375,7 +391,13 @@ This guy is god:
 </a>
 </div>
 </div>
+
+- [Composable Vue | Anthony Fu](https://talks.antfu.me/2021/composable-vue/)
+- [可組合式 Vue | Anthony Fu (上面的中文版，比較詳細 ^ ^)](https://talks.antfu.me/2021/vueconf-china)
+
 </div>
+
+
 
 <div class="flex gap-4">
 <Card title="vite + vue3 + windicss startup">
@@ -401,4 +423,49 @@ Vue demi: <a href="https://github.com/vueuse/vue-demi" target="_blank" alt="GitH
 </div>
 </Card>
 </div>
+</div>
+
+---
+
+# Appendix
+
+Separation of vue specified and reactive package:
+
+<div grid="~ cols-2 gap-5">
+
+Common imported Utils
+```ts {monaco}
+import { // reactive stand alone package
+  ref, reactive, unref, toRef, toRaw, readonly, computed,
+  // Vue 3.2 only:
+  defferComputed, effectScope
+} from 'vue'
+
+import { // watchApi, doesn't need to be inside setup
+  watch, watchEffect
+} from 'vue'
+
+import { // Life cycles, NEED TO BE IN SETUP!!
+  onBeforeMount, onMounted, onBeforeUpdate, onUpdated,
+  onBeforeUnmount, onUnmounted, onActivated, onDeactivated,
+  onRenderTracked, onRenderTriggered, onErrorCaptured, onServerPrefetch
+} from 'vue'
+
+({ref, reactive, unref, toRef, toRaw, readonly, computed,watch, watchEffect,onBeforeMount, onMounted, onBeforeUpdate, onUpdated, onBeforeUnmount, onUnmounted, onActivated, onDeactivated, onRenderTracked, onRenderTriggered, onErrorCaptured, onServerPrefetch})
+```
+
+<div>
+
+Misc Function
+```ts
+export { provide, inject } from './apiInject'
+export { nextTick } from './scheduler'
+export { defineComponent } from './apiDefineComponent'
+export { defineAsyncComponent } from './apiAsyncComponent'
+export { useAttrs, useSlots } from './apiSetupHelpers'
+```
+- [vue: index.ts](https://github.com/vuejs/vue-next/blob/master/packages/runtime-core/src/index.ts)
+
+</div>
+
 </div>
