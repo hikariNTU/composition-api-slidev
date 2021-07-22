@@ -120,10 +120,14 @@ Extra Reading
 
 A <span class="font-black">counter</span> and a <span class="font-black">books list</span> fetch logic snippet
 
+<div grid="~ gap-4" class="grid-cols-[2fr,1fr]">
+
+<div>
+
 ```ts {monaco}
 import { ref, computed, unref, defineComponent } from 'vue';
 
-/** Sound's like you need documentation? */
+/** Composable Factory Function, just a function */
 const useCounter = () => {
   const count = ref(0)
   const addCount = () => {count.value += 1}
@@ -140,7 +144,36 @@ export default defineComponent({
     }
   }
 })
+
 ```
+
+</div>
+
+<div>
+
+```js{1-2,6-7,10-12}
+data(){
+  count: 0,
+  books: [],
+  loading: true,
+},
+computed: {
+  canResetCount(){ return this.count === 0;},
+  sortedData(){ return [...this.books].sort();},
+},
+method: {
+  addCount(){ this.count += 1;},
+  resetCount(){this.count = 0;}
+},
+async mount(){
+  this.loading = true;
+  this.book = await api.getBooks();
+  this.loading = false;
+}
+```
+
+</div>
+</div>
 
 
 ---
@@ -148,6 +181,11 @@ export default defineComponent({
 # Composition API (book list)
 
 A <span class="font-black">counter</span> and a <span class="font-black">books list</span> fetch logic snippet
+
+<div grid="~ gap-4" class="grid-cols-[2fr,1fr]">
+
+<div>
+
 
 ```ts {monaco}
 import { ref, computed, onMounted, defineComponent } from 'vue';
@@ -170,6 +208,35 @@ export default defineComponent({
   }
 })
 ```
+
+</div>
+
+<div>
+
+```js{1,3-4,6,8,14-17}
+data(){
+  count: 0,
+  books: [],
+  loading: true,
+},
+computed: {
+  canResetCount(){ return this.count === 0;},
+  sortedData(){ return [...this.books].sort();},
+},
+method: {
+  addCount(){ this.count += 1;},
+  resetCount(){this.count = 0;}
+},
+async mount(){
+  this.loading = true;
+  this.book = await api.getBooks();
+  this.loading = false;
+}
+```
+
+</div>
+
+</div>
 
 ---
 
@@ -468,7 +535,7 @@ export { defineComponent } from './apiDefineComponent'
 export { defineAsyncComponent } from './apiAsyncComponent'
 export { useAttrs, useSlots } from './apiSetupHelpers'
 ```
-- [vue: index.ts](https://github.com/vuejs/vue-next/blob/master/packages/runtime-core/src/index.ts)
+[**All index** - vue repo `index.ts`](https://github.com/vuejs/vue-next/blob/master/packages/runtime-core/src/index.ts)
 
 </div>
 
